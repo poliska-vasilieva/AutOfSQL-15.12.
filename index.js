@@ -58,7 +58,9 @@ app.post('/login', async (request, response) => {
         return response.sendStatus(400);
     }
 
-    response.redirect('/profile')
+    console.log(request.body)
+
+    return response.redirect('/profile')
 });
 
 
@@ -79,7 +81,7 @@ app.post('/auth', async (request, response) => {
     if (account.password !== password) {
         return response.sendStatus(400);
     }
-    response.sendStatus(200);
+    response.redirect('/profile');
 });
 
 app.listen(3000, () => {

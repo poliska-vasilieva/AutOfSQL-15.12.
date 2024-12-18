@@ -6,7 +6,7 @@ document.getElementById('registerButton').addEventListener('click', () => {
         email,
         password
     }
-    
+
     fetch('/auth', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -14,19 +14,17 @@ document.getElementById('registerButton').addEventListener('click', () => {
             "Content-Type": "application/json"
         }
     })
-    .then(response => {
-        if(response.status == 404)
-        {
-            alert('Аккаунт не существует')
-            return
-        }
+        .then(response => {
+            if (response.status == 404) {
+                alert('Аккаунт не существует')
+                return
+            }
 
-        if(response.status == 400)
-        {
-            alert('Неверный пароль')
-            return
-        }
+            if (response.status == 400) {
+                alert('Неверный пароль')
+                return
+            }
 
-        alert('Ты зашел')
-    })
+
+        })
 })
