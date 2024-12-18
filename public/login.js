@@ -25,6 +25,6 @@ document.getElementById('registerButton').addEventListener('click', () => {
                 return
             }
 
-
+            alert('Ты зашел')
         })
 })

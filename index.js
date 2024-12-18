@@ -32,11 +32,9 @@ const User = sequelize.define('User', {
     }
 });
 sequelize.sync();
-
 app.use(express.static('public'));
 app.use(cors());
 app.use(express.json());
-
 app.post('/register', async (request, response) => {
     const { email, password, name } = request.body;
     try {
@@ -45,9 +43,7 @@ app.post('/register', async (request, response) => {
     } catch (error) {
         response.status(500).send({ error: 'Ошибка при регистрации' });
     }
-
 });
-
 app.post('/login', async (request, response) => {
     const { email, password } = request.body;
     let user = await User.findOne({ where: { email: email } });
@@ -57,13 +53,8 @@ app.post('/login', async (request, response) => {
     if (user.password !== password) {
         return response.sendStatus(400);
     }
-
-    console.log(request.body)
-
-    return response.redirect('/profile')
+    response.redirect('/profile')
 });
-
-
 app.get('/profile', async (request, response) => {
     let account = await Account.findOne({ where: { email: request.body.email } });
     if (!account) {
@@ -71,7 +62,6 @@ app.get('/profile', async (request, response) => {
     }
     response.send(account);
 });
-
 app.post('/auth', async (request, response) => {
     const { email, password } = request.body;
     let account = await Account.findOne({ where: { email: email } });
@@ -81,9 +71,8 @@ app.post('/auth', async (request, response) => {
     if (account.password !== password) {
         return response.sendStatus(400);
     }
-    response.redirect('/profile');
+    response.sendStatus(200);
 });
-
 app.listen(3000, () => {
     console.log('Сервер запущен на порту 3000');
 });
